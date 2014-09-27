@@ -79,46 +79,45 @@ return array (
 									'visible' => false,
 							)
 					)
-			),
-			array(
-					'label' => '系统设置',
-					'controller' => 'config',
-					'order' => 30,
-					'pages' => array(
-							array(
-									'label' => '基本设置',
-									'controller' => 'config',
-									'action' => 'index',
-									'resource' => 'config_index',
-							),
-							array(
-									'label' => '促销活动',
-									'controller' => 'promotion',
-									'action' => 'index',
-									'resource' => 'promotion_index',
-							),
-							array(
-									'label' => '邮件服务器',
-									'controller' => 'config',
-									'action' => 'mail',
-									'resource' => 'config_mail',
-							),
-							array(
-									'label' => '新增配置',
-									'controller' => 'config',
-									'action' => 'add',
-									'resource' => 'config_add',
-									'visible' => false,
-							),
-							array(
-									'label' => '编辑会员资料',
-									'controller' => 'member',
-									'params' => array('id' => '[0-9]+'),
-									'visible' => false,
-							)
-					)
-			),
+			)
 	    ),
+	),
+	array(
+			'label' => '设置',
+			'uri' => '',
+			'id' => 1,
+			'order' => 30,
+			'pages' => array(
+					array(
+							'label' => '系统设置',
+							'id' => 10,
+							'uri' => '',
+							'pages' => array(
+									array(
+											'label' => '基本设置',
+											'id' => 101,
+											'controller' => 'config',
+											'action' => 'index',
+											'resource' => 'config_index',
+									),
+									array(
+											'label' => '邮件服务器',
+											'id' => 102,
+											'controller' => 'config',
+											'action' => 'mail',
+											'resource' => 'config_mail',
+									),
+									array(
+											'label' => '新增配置',
+											'id' => 103,
+											'controller' => 'config',
+											'action' => 'add',
+											'resource' => 'config_add',
+											'visible' => false,
+									)
+							),
+					),
+			)
 	),
 	array(
 			'label' => '网站管理',

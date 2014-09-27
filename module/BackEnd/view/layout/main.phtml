@@ -76,7 +76,9 @@ window.onresize();
 //站点下拉菜单
 $(function(){
 	//默认载入左侧菜单
-	$("#leftMain").load("10.html");
+	var id = $("li.on", $("#top_menu")).attr('id');
+	id = id.substring(2);
+	$("#leftMain").load("/index/menu?id="+id);
 })
 
 //左侧开关

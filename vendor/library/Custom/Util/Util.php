@@ -960,4 +960,20 @@ class Util
 		preg_match("/[\w\-]+\.\w+$/", $domain, $arr);
 		return isset($arr[0]) ? $arr[0] : $domain ;
 	}
+	public static function checkShowMenu(\Zend\Navigation\Page\AbstractPage $page, \Custom\View\Helper\Navigation\Menu $menu) {
+		$show = 0;
+		if (!empty($page->pages)) {
+			foreach ($page->pages as $subPage) {
+				if ($subPage->isVisible() && $menu->accept($subPage)) {
+					if (!empty($subPage->pages)) {
+						$show = self::checkShowMenu($subPage, $menu);
+					} else {
+						$show = 1;
+					}
+					break;
+				}
+			}
+		}
+		return $show;
+	}
 }

@@ -1,3 +1,6 @@
+<?php
+use Custom\Util\Util;
+?>
 <div class="header">
 	<div class="logo lf"><a href="<?php echo $this->Url('home');?>" target="_self"><span class="invisible">ADMIN 管理系统</span></a></div>
     <div class="rt">
@@ -20,9 +23,12 @@
 			if (!($page->isVisible() && $menu->accept($page))) {
 				continue;
 			}
-			$active = $num == 1 ? " on " : '';
-        	echo "<li id=\"_M{$page->id}\" class=\"{$active}top_menu\"><a href=\"javascript:_M({$page->Id},'#');\" hidefocus=\"true\" style=\"outline:none;\">{$page->getLabel()}</a></li>";
-        	$num ++;
+			$hasAcl = Util::checkShowMenu($page, $menu);
+			if ($hasAcl) {
+				$active = $num == 1 ? " on " : '';
+	        	echo "<li id=\"_M{$page->id}\" class=\"{$active}top_menu\"><a href=\"javascript:_M({$page->Id},'#');\" hidefocus=\"true\" style=\"outline:none;\">{$page->getLabel()}</a></li>";
+	        	$num ++;
+        	}
 		}
         ?>
     	<!--
