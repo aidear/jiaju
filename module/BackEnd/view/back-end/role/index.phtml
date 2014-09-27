@@ -1,0 +1,128 @@
+<?php
+$this->headScript()->appendFile($this->basePath('js/jquery-ui-1.10.2.custom.min.js'));
+$this->headLink()->appendStylesheet('http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
+?>
+<ul class="nav nav-tabs" role="tablist">
+  <li role="presentation" class="active"><a href="<?php echo $this->url('backend' , array('controller' => 'role' , 'action' => 'index'));
+    ?>">角色管理</a></li>
+  <li role="presentation"><a href="<?php echo $this
+    ->url('backend' , array('controller' => 'role' , 'action' => 'save'));
+    ?>"><i class="icon-plus"></i>添加角色</a></li>
+</ul>
+<br />
+<div class="panel panel-default">
+  <div class="panel-body">
+    <table class="table table-bordered table-hover table-responsive">
+		<tr>
+            	<th>全选<input type="checkbox" name="select_all" value="all"/></th>
+                <th>角色</th>
+                <th>角色别名</th>
+                <!-- <th width="65%">已绑定资源</th> -->
+                <th>添加时间</th>
+                <th>操作</th>
+        </tr>
+        <?php $i = 1;foreach($this->list as $role):?>
+                <tr>
+                	<td><input type="checkbox" name="select" value="<?php echo $role['Name'];?>" data-key="角色" data-value="<?php echo $role['Name']; ?>"/><?php echo $i;?></td>
+                    <td><?php echo $role['Name'];?></td>
+                    <td><?php echo $role['CnName'];?></td>
+                    <!-- <td style="word-break: break-all;"><?php
+                    foreach ($role['resource'] as $v) {
+                    	echo $v['ResourceName'],',';
+                    }
+                    ;?></td> -->
+                    <td><?php echo $role['AddTime'];?></td>
+                    <td><a class="btn btn-bind" href="javascript:;" role="<?php echo $role['Name'];?>" _href="/acl/allow?role=<?php echo $role['Name'];?>"><i class="icon-edit"></i>
+                            绑定资源</a>
+                     <a class="btn btn-delete" href="<?php echo $this->url('backend' , array('controller' => 'role'
+                            , 'action' => 'delete'));?>?name=<?php echo $role['Name'];?>"><i class="icon-delete"></i>
+                            删除</a>
+                            </td>
+                </tr>
+       <?php $i++ ;endforeach;?>
+    </table>
+  </div>
+</div>
+<script>
+var role = '';
+$(function(){
+	function loadResource(type, role) {
+		if (type == '') {
+			alert('请选择操作');return false;
+		}
+		if (role == '') {
+			alert('请选择角色！');return false;
+		}
+		$.ajax({
+			type:'POST',
+			url:'/ajax/getResource',
+			data:{type : type, role : role},
+			dataType:'json',
+			cache:false,
+			success:function(s) {
+				if (s.code == 0) {
+					var html = '<table class="table">';
+					html += '<tr>';
+					html += '<th width=60>全选<input type="checkbox" name="sAll" value="0" /> </th><th>资源</th><th>控制器</th><th>动作</th>';
+					html += '</tr>';
+					s = s.data;
+					for (var i in s) {
+						html += '<tr>';
+						html += '<td><input type="checkbox" name="resourceItem" value="'+s[i].Name+'" />'+i+'</td>';
+						html += '<td>'+s[i].Name+'</td>';
+						html += '<td>'+s[i].ControllerName+'</td>';
+						html += '<td>'+s[i].ActionName+'</td>';
+						html += '</tr>';
+					}
+					html += '</table>';
+					$("#resourceLists").html(html);
+					$("input[name='sAll']").bind('click', function(){
+						if ($(this).is(':checked')) {
+							$("input[name='resourceItem']", $("#resourceLists")).prop('checked', this.checked);
+						} else {
+							$("input[name='resourceItem']", $("#resourceLists")).removeAttr('checked');
+						}
+					})
+				} else {
+					alert(s.msg);
+				}
+			}
+		});
+	}
+	$(".btn-bind").click(function(){
+		if ($("#dialog-resource").size() == 0) {
+			$("body").append("<div id='dialog-resource'></div>");
+		}
+		$("#dialog-resource").html("<p>选择操作:<select name='opt'><option value='add'>添加资源</option><option value='del'>删除资源</option></select></p><p id='resourceLists'></p>");
+		var type = $("body select[name='opt']").val();
+		role = $(this).attr('role');;
+		loadResource(type, role);
+		$("#dialog-resource").dialog({position:'center',width:600,height:600, title: '绑定资源', buttons: [ { text: "确定", click: function() {
+			var resources = new Array();
+			var that = $(this);
+			$("input[name='resourceItem']:checked", $("#resourceLists")).each(function(){
+				resources.push($(this).val());
+			});
+			var type = $("body select[name='opt']").val();
+    		$.ajax({
+    			type:'POST',
+    			url:'/ajax/saveAcl',
+    			data:{type : type, role : role, resources: resources},
+    			dataType:'json',
+    			cache:false,
+    			success:function(s) {
+        			alert(s.msg);
+        			if (s.code == 0) {
+        				that.dialog( "close" );
+        				location.reload();
+            		}
+    			}
+    		});
+			} } ]});
+	});
+	$('body').delegate("#dialog-resource select[name='opt']", 'change', function(){
+		var type = $(this).val();
+		loadResource(type, role);
+	});
+})
+</script>

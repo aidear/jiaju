@@ -1,0 +1,65 @@
+<?php
+$nav = $this->mynavigation('backendNav');
+$found = $nav->findBy('id', $this->id);
+if ($found) {
+    foreach ($found as $page) {
+    	if (!($page->isVisible() && $nav->accept($page))) {
+    		continue;
+    	}
+    	$html = '';
+    	if (!empty($page->pages)) {
+    		$subMenu = '';
+    		foreach ($page->pages as $subpage) {
+    			if (!($subpage->isVisible() && $nav->accept($subpage))) {
+    				continue;
+    			}
+    			$subMenu .= "<li id=\"_MP{$subpage->id}\" class=\"sub_menu\">
+                	<a href=\"javascript:_MP('{$subpage->id}','{$subpage->getHref()}');\" hidefocus=\"true\" style=\"outline:none;\">{$subpage->getLabel()}</a></li>";
+    		}
+    		if ($subMenu) {
+    			$html .= "<h3 class=\"f14\"><span class=\"switchs cu on\" title=\"{$page->getLabel()}\"></span>{$page->getLabel()}</h3>";
+    			$html .= "<ul>" . $subMenu . "</ul>";
+    		}
+    		echo $html;
+    	}
+    }
+}
+    ?>
+<!--
+<h3 class="f14"><span class="switchs cu on" title="会员管理"></span>会员管理</h3>
+            <ul>
+                <li id="_MP1" class="sub_menu">
+                	<a href="javascript:_MP('1','/member');" hidefocus="true" style="outline:none;">会员列表</a></li>
+                <li id="_MP2" class="sub_menu">
+                	<a href="javascript:_MP('2','index.html');" hidefocus="true" style="outline:none;">基本设置</a></li>
+                <li id="_MP3" class="sub_menu">
+                	<a href="javascript:_MP('3','index.html');" hidefocus="true" style="outline:none;">安全设置</a></li>
+                <li id="_MP4" class="sub_menu">
+                	<a href="javascript:_MP('4','index.html');" hidefocus="true" style="outline:none;">邮箱配置</a></li>
+            </ul>
+            <h3 class="f14"><span class="switchs cu on" title="相关设置"></span>管理员设置</h3>
+            <ul>
+                <li id="_MP5" class="sub_menu">
+                	<a href="javascript:_MP('5','index.html');" hidefocus="true" style="outline:none;">管理员管理</a></li>
+                <li id="_MP6" class="sub_menu">
+                	<a href="javascript:_MP('6','/role');" hidefocus="true" style="outline:none;">角色管理</a></li>
+                <li id="_MP7" class="sub_menu">
+                	<a href="javascript:_MP('7','/resource');" hidefocus="true" style="outline:none;">资源管理</a></li>
+                <li id="_MP8" class="sub_menu">
+                	<a href="javascript:_MP('8','/user');" hidefocus="true" style="outline:none;">帐号管理</a></li>
+            </ul> -->
+			<script type="text/javascript">
+            $(".switchs").each(function(i){
+                var ul = $(this).parent().next();
+                $(this).click(
+                function(){
+                    if(ul.is(':visible')){
+                        ul.hide();
+                        $(this).removeClass('on');
+                            }else{
+                        ul.show();
+                        $(this).addClass('on');
+                    }
+                })
+            });
+</script>

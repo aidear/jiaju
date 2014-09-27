@@ -1,0 +1,58 @@
+<ul class="nav nav-tabs" role="tablist">
+  <li role="presentation" class="active"><a href="<?php echo $this->url('backend' , array('controller' => 'resource' , 'action' => 'index'));
+    ?>">资源列表</a></li>
+  <li role="presentation"><a href="<?php echo $this
+    ->url('backend' , array('controller' => 'resource' , 'action' => 'updateResource'));
+    ?>"><i class="icon-plus"></i>更新资源</a></li>
+</ul>
+<br />
+<div class="panel panel-default">
+  <div class="panel-body">
+<!--     <table class="table table-bordered table-hover table-responsive"> -->
+		<table class="table">
+            <thead>
+                <tr class="row">
+                	<th>全选<input type="checkbox" name="select_all" value="all"/></th>
+                    <th>资源名</th>
+                    <th>控制器名</th>
+                    <th>控制器别名</th>
+                    <th>动作名</th>
+                    <th>动作别名</th>
+                    <th>添加时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if(count($this->paginaction) > 0):?>
+                <?php foreach($this->paginaction as $resource):?>
+                <tr class="row">
+                	<td><input type="checkbox" name="select" value="<?php echo $resource->ResourceID?>" data-key="资源名" data-value="<?php echo $resource->Name; ?>" /></td>
+                    <td><?php echo $resource->Name?></td>
+                    <td><?php echo $resource->Controller?></td>
+                    <td><?php echo $resource->ControllerName?></td>
+                    <td><?php echo $resource->Action?></td>
+                    <td><?php echo $resource->ActionName?></td>
+                    <td><?php echo $resource->AddTime?></td>
+                    <td>
+                    <a class="btn btn-edit" href="<?php echo $this->url('backend' , array('controller' => 'resource'
+                            , 'action' => 'save'))?>?id=<?php echo $resource->ResourceID?>"><i class="icon-edit"></i>
+                            设置别名</a>
+                    </td>
+                </tr>
+                <?php endforeach;?>
+                <?php endif;?>
+            </tbody>
+        </table>
+        <?php echo $this->paginationControl($this->paginaction,'Sliding','layout/pagination' , array('link' => $this->url));?>
+  </div>
+</div>
+<script>
+$(function(){
+	var memory_list = getcookie('memory_id_list');
+	var strs = memory_list.split(',');
+	for (i=0;i<strs.length ;i++ )
+    {
+		$("input[type='checkbox'][name='select'][value='"+strs[i]+"']").click();
+    }
+})
+</script>

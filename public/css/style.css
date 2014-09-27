@@ -1,6 +1,7 @@
 body {
-    padding-top: 60px;
+    padding: 10px;
     padding-bottom: 40px;
+	font-size:12px;
 }
 
 .zf-green {
@@ -34,4 +35,48 @@ div.container a.brand {
     background: url("../img/zf2-logo.png") no-repeat scroll 0 10px transparent;
     margin-left: 0;
     padding: 8px 20px 12px 40px;
+}
+.icon-view{
+    background-position: -336px 0;
+}
+.icon-edit{
+    background-position: -96px -72px;
+}
+.icon-delete{
+    background-position: -456px 0;
+}
+.icon-chevron-left {
+    background-position: -432px -72px;
+}
+.icon-white {
+    background-image: url("/img/BackEnd/glyphicons-halflings-white.png");
+}
+.icon-plus {
+    background-position: -408px -96px;
+}
+.icon-info-sign {
+    margin-left:4px;
+    margin-right:2px;
+    background-position: -120px -96px;
+}
+.icon-exclamation-sign {
+    background-position: 0 -120px;
+}
+.icon-repeat {
+    background-position: -216px -24px;
+}
+.icon-plane {
+    background-position: -168px -120px;
+}
+.icon-thumbs-up {
+    background-position: -96px -144px;
+}
+.icon-thumbs-down {
+    background-position: -120px -144px;
+}
+.icon-upload {
+    background-position: -144px -24px;
+}
+.icon-download {
+    background-position: -120px -24px;
 }

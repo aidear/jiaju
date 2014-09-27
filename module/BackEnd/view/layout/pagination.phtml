@@ -1,0 +1,81 @@
+<?php //if ($this->pageCount > 1): ?>
+<?php
+    if(strrpos($this->link , '?') === false){
+        $prefix = '?page=';
+    }else{
+        $prefix = '&page=';
+    }
+    $u = parse_url($this->link);
+    $query = isset($u['query']) ? $u['query'] : '';
+    $action = str_replace($query, '', $this->link);
+    parse_str($query, $params);
+    if (array_key_exists('pageSize', $params)) {
+    	unset($params['pageSize']);
+    }
+    $action = $action.http_build_query($params);
+?>
+<div>
+<ul class="set col-sm-2" style="margin:20px 0;"><li><form id="pageSet" method="get" action="<?php echo $action;?>" style="margin-top:2px;">
+	<input autocomplete='off' type="text" name="pageSize" value="<?php echo $this->itemCountPerPage;?>" style="width:56px;height:30px;margin-right:8px;" />
+条/页
+<!-- 	<input type="button" name="button_page_size" value="确定" /> -->
+	</form>
+	</li></ul>
+    <ul class="pagination col-sm-8" style="margin:20px 0;">
+        <?php //if (isset($this->previous)): ?>
+        <li class="prev">
+            <a href="<?php echo $this->link . $prefix . 1;?>">首页</a>
+        </li>
+        <?php if (isset($this->previous)):?>
+        <li class="prev">
+            <a href="<?php echo $this->link . $prefix . $this->previous;?>">上一页</a>
+        <?php else:?>
+        <li class="prev disabled">
+        	<a href="javascript:;">上一页</a>
+        <?php endif;?>
+        </li>
+        <?php //endif;?>
+        <?php foreach ($this->pagesInRange as $page): ?>
+        <?php if ($page != $this->current): ?>
+            <li><a href="<?php echo $this->link . $prefix . $page;?>"><?php echo $page; ?></a></li>
+
+        <?php else:?>
+            <li class="active"><a href="javascript:;"><?php echo $page; ?></a></li>
+        <?php endif;?>
+        <?php endforeach;?>
+        <?php if (isset($this->next)): ?>
+        <li class="next"><a href="<?php echo $this->link . $prefix . $this->next;?>">下一页</a></li>
+        <li class="next"><a href="<?php echo $this->link . $prefix . $this->pageCount;?>">末页</a></li>
+        <?php else:?>
+        <li class="disabled"><a href="javascript:;">下一页</a></li>
+        <li><a href="javascript:;">末页</a></li>
+        <?php endif;?>
+     </ul>
+     <span class="col-sm-2" style="margin:20px 0;">
+         共<span><?php echo $this->totalItemCount?></span>条
+          <span><?php echo $this->pageCount?></span> 页
+     </span>
+</div>
+<?php //endif;?>
+<script>
+$(function() {
+	var pageSizeEvent = function(){
+		var pageSize = $("input[name='pageSize']").val();
+		var reg = /^\d+$/;
+		if (reg.test(pageSize)) {
+			var url = $("#pageSet").attr('action');
+			url += (url.indexOf('?') > -1 ? "&pageSize="+pageSize : "?pageSize="+pageSize);
+			location.href=url;
+		} else {
+			alert('请输入数字！');
+		}
+	}
+	$("input[name='pageSize']").blur(pageSizeEvent);
+	$("input[name='pageSize']").focusin(function(e) {
+		e = window.event || e;
+		if (e.keyCode == 13) {
+			pageSizeEvent;
+		}
+	});
+})
+</script>

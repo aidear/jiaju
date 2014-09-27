@@ -1,0 +1,58 @@
+<?php
+$msg = $this->flashMessages();
+?>
+<ul class="nav nav-tabs" role="tablist">
+  <li role="presentation" class="active"><a href="<?php echo $this->url('backend' , array('controller' => 'user' , 'action' => 'index'));
+    ?>">帐号管理</a></li>
+  <li role="presentation"><a href="<?php echo $this
+    ->url('backend' , array('controller' => 'user' , 'action' => 'save'));
+    ?>"><i class="icon-plus"></i>添加帐号</a></li>
+</ul>
+<br />
+<div class="panel panel-default">
+  <div class="panel-body">
+    <table class="table">
+            <thead>
+                <tr class="row">
+                	<th>全选<input type="checkbox" name="select_all" value="all"/></th>
+                    <th>用户名</th>
+                    <th>角色</th>
+                    <th>最后修改时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php $i=1;foreach ($this->paginaction as $user): ?>
+                    <tr class="row">
+                    	<td width=60><input type="checkbox" name="select" value="<?php echo $user->ID; ?>" data-key="用户名" data-value="<?php echo $user->UserName; ?>"/><?php echo $i;?></td>
+                        <td><?php echo $user->UserName; ?></td>
+                        <td><?php echo $user->Role; ?></td>
+                        <td><?php echo $user->LastUpdate; ?></td>
+                        <td>
+                        <a class="btn btn-edit" href="<?php echo $this->url('backend', array('controller'
+                                => 'user', 'action' => 'save')) ?>?id=<?php echo $user->ID;?>">
+                                <i class="icon-edit"></i>编辑
+                            </a>
+                        <a class="btn btn-delete" href="<?php echo $this->url('backend', array('controller'
+                                => 'user', 'action' => 'delete')) ?>?id=<?php echo $user->ID;?>"><i class="icon-delete"></i>删除
+                            </a>
+                        </td>
+                    </tr>
+                <?php $i++;endforeach; ?>
+            </tbody>
+        </table>
+        <?php echo $this->paginationControl($this->paginaction,'Sliding','layout/pagination' , array('link'
+            => $this->url));?>
+  </div>
+</div>
+<script>
+$(function(){
+
+	var memory_list = getcookie('memory_id_list');
+	var strs = memory_list.split(',');
+	for (i=0;i<strs.length ;i++ )
+    {
+		$("input[type='checkbox'][name='select'][value='"+strs[i]+"']").click();
+    }
+})
+</script>

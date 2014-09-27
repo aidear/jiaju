@@ -1,0 +1,25 @@
+<?php
+$form = $this->form;
+?>
+<ul class="nav nav-tabs" role="tablist">
+  <li role="presentation"><a href="<?php echo $this->url('backend' , array('controller' => 'user' , 'action' => 'index'));
+    ?>">帐号管理</a></li>
+  <li role="presentation" class="active"><a href="<?php echo $this
+    ->url('backend' , array('controller' => 'user' , 'action' => 'save')) . (isset($_GET['id']) ? "?id=" . $_GET['id'] : '');
+    ?>"><i class="icon-plus"></i><?php echo isset($_GET['id']) ? '编辑' : '添加用户';?>帐号</a></li>
+</ul>
+<br />
+<div class="panel panel-default">
+  <div class="panel-body">
+<form class="form-horizontal" action="<?php echo $this->url('backend' , array('controller' => 'user' , 'action' => 'save'))?>"
+              method="post">
+            <fieldset>
+                <?php echo $this->formText($form->get('UserName'))?>
+                <?php echo $this->formPassword($form->get('Password'))?>
+                <?php echo $this->formSelect($form->get('Role'))?>
+                <?php echo $this->formHidden($form->get('ID'))?>
+                <?php echo $this->formSubmit($form->get('submit') , '提交')?>
+            </fieldset>
+        </form>
+  </div>
+</div>

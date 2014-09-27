@@ -1,0 +1,83 @@
+<?php
+$this->headScript()->prependFile($this->basePath('js/jquery.min.js'))
+->appendFile($this->basePath('statics/js/validator.js'))
+->appendFile($this->basePath('statics/js/login.js'));
+$msg = $this->msg;
+$form = $this->form;
+?>
+<div></div>
+
+<div id=user_login>
+<dl>
+  <dd id=user_top>
+  <ul>
+    <li class=user_top_l></li>
+    <li class=user_top_c></li>
+    <li class=user_top_r></li>
+  </ul>
+  <dd id=user_main>
+  <form  class="form-login" method="post" action="<?php echo $this->url('backend' , array('controller' => 'login' , 'action' => 'index'));?>">
+  <ul>
+    <li class=user_main_l></li>
+    <li class=user_main_c>
+    <div class=user_main_box>
+    <ul>
+      <li class=user_main_text>用户名： </li>
+      <li class=user_main_input>
+      	<input autocomplete="off" class=TxtUserNameCssClass id=TxtUserName
+      maxLength=20 name="username" value="<?php echo $form->get('username')->getValue();?>" />
+      </li>
+    </ul>
+    <ul>
+      <li class=user_main_text>密 码： </li>
+      <li class=user_main_input>
+      <input class=TxtPasswordCssClass id=TxtPassword
+      type=password name="password"  value="<?php echo $form->get('password')->getValue();?>" /> </li>
+      <?php if (isset($_COOKIE['AdminFailCount']) && $_COOKIE['AdminFailCount'] >= 2):?>
+      <li class=user_main_text>验证码： </li>
+      <li class=user_main_input>
+      <input autocomplete="off" class="TxtValidateCodeCssClass" id="loginCode"
+      type="text" name="validateCode" /> <img src="<?php echo $this->Url('backend', array('controller' => 'login', 'action' => 'captcha'));?>" class="validateImg" alt="看不清？点击图片更换验证码"/></li>
+     <?php endif;?>
+     </ul>
+    </div>
+    </li>
+    <li class=user_main_r><input class=IbtnEnterCssClass id=IbtnEnter
+    style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px"
+    type=image src="/statics/images/user_botton.gif" name=IbtnEnter> </li>
+    </ul>
+    </form>
+  <dd id=user_bottom>
+  <ul>
+    <li class=user_bottom_l></li>
+    <li class=user_bottom_c><?php if(!empty($msg['error'])):?>
+            <div class="alert alert-error fade in">
+            <?php foreach($msg['error'] as $v):?>
+            <p><?php echo $v;?></p>
+            <?php endforeach;?>
+            </div>
+            <?php endif;?>
+
+            <?php if(!empty($msg['success'])):?>
+            <div class="alert alert-success fade in">
+            <?php foreach($msg['success'] as $v):?>
+            <p><?php echo $v;?></p>
+            <?php endforeach;?>
+            </div>
+            <?php endif;?>
+     </li>
+    <li class=user_bottom_r></li></ul></dd></dl></div>
+    <span id=ValrUserName style="DISPLAY: none; color: red"></span><span id=ValrPassword
+style="DISPLAY: none; COLOR: red"></span><span id=ValrValidateCode
+style="DISPLAY: none; COLOR: red"></span>
+<div id=ValidationSummary1 style="DISPLAY: none; color: red"></div>
+
+<div></div>
+<script type="text/javascript">
+$(function(){
+	$("#TxtUserName").focus();
+	$('.validateImg').click(function(){
+		$(this).attr('src', '/login/captcha?t='+Math.random());
+	});
+})
+</script>

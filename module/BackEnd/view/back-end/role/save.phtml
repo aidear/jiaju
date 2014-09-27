@@ -1,0 +1,28 @@
+<?php
+$form = $this->form;
+?>
+<ul class="nav nav-tabs" role="tablist">
+  <li role="presentation"><a href="<?php echo $this->url('backend' , array('controller' => 'role' , 'action' => 'index'));
+    ?>">角色管理</a></li>
+  <li role="presentation" class="active"><a href="<?php echo $this
+    ->url('backend' , array('controller' => 'role' , 'action' => 'save'));
+    ?>"><i class="icon-plus"></i>添加角色</a></li>
+</ul>
+<br />
+<div class="panel panel-default">
+  <div class="panel-body">
+  <?php if($this->msg):?>
+    <?php foreach($this->msg as $msg):?>
+    <div class="input-group error"><p class="help-block"><i class="icon-warning-sign"></i><?php echo $msg;?></p></div>
+    <?php endforeach;?>
+    <?php endif;?>
+    	<br />
+        <form class="form-horizontal" action="<?php echo $this->url('backend' , array('controller' => 'role' , 'action' => 'save'));?>"
+            method="post">
+        <?php echo $this->formText($form->get('Name'));echo $this->formElementErrors($form->get('Name'));?>
+        <?php echo $this->formText($form->get('CnName'));?>
+        <?php //echo $this->formText($form->get('ParentName'));?>
+        <?php echo $this->formSubmit($form->get('submit'));?>
+        </form>
+  </div>
+</div>
