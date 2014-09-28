@@ -26,7 +26,7 @@ class IndexController extends AbstractController
         return new ViewModel();
     }
     public function menuAction(){
-    	$id = $this->params()->fromQuery('id');
+    	$id = $this->params()->fromPost('id');
     	$assign['id'] = $id;
     	$v = new ViewModel($assign);
     	$v->setTemplate('layout/leftSidebar');

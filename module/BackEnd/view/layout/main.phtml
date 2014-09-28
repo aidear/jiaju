@@ -9,6 +9,7 @@
                         ->prependStylesheet($this->basePath() . '/statics/css/system.css');
 	echo $this->headScript()
 	->prependFile($this->basePath() . '/statics/js/comm.js')
+	->prependFile($this->basePath('js/jquery.nicescroll.min.js'))
 	->prependFile($this->basePath() . '/statics/js/jquery.min.js');
 ?>
 </head>
@@ -27,12 +28,13 @@
         </div>
     </div>
     <div class="col-auto mr8">
+    <!--
         <div class="crumbs">
             <div class="shortcut cu-span">
             	<a href="#" target="right"><span>生成首页</span></a>
                 <a href="?m=admin&c=cache_all&a=init" target="right"><span>更新缓存</span></a>
                 <a href="#"><span>后台地图</span></a></div>
-        	当前位置：<span id="current_pos"></span></div>
+        	当前位置：<span id="current_pos"></span></div> -->
             <div class="col-1">
                 <div class="content" style="position:relative; overflow:hidden">
                     <iframe name="right" id="rightMain" src="index.html" frameborder="false" scrolling="auto" style="overflow-x:hidden;border:none; margin-bottom:30px" width="100%" height="auto" allowtransparency="true"></iframe>
@@ -78,7 +80,9 @@ $(function(){
 	//默认载入左侧菜单
 	var id = $("li.on", $("#top_menu")).attr('id');
 	id = id.substring(2);
-	$("#leftMain").load("/index/menu?id="+id);
+	$("#leftMain").load("/index/menu", {id: id}, function(){
+// 		$("#leftMain").niceScroll({cursorcolor:"#cccccc"});
+	});
 })
 
 //左侧开关

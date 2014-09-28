@@ -74,6 +74,13 @@ class Module
         $translator = $e->getApplication()
 		->getServiceManager()->get('translator');
         \Zend\Validator\AbstractValidator::setDefaultTranslator($translator);
+        $sys_config = array();
+        if (file_exists('./data/sys_config.php')) {
+        	$sys_config = include'./data/sys_config.php';
+        }
+        define("__SHOP_URL", isset($sys_config['shop_url']) ? $sys_config['shop_url'] : '');
+        define('__LIST_ORDER', 'ASC');
+        define('__IMG_URL', '');
     }
     public function bootstrapSession($e)
     {

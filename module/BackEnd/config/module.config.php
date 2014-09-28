@@ -54,9 +54,9 @@ return array(
         'locale' => 'zh_CN',
         'translation_file_patterns' => array(
             array(
-                'type'     => 'gettext',
+                'type'     => 'phparray',
                 'base_dir' => __DIR__ . '/../language',
-                'pattern'  => '%s.mo',
+                'pattern'  => '%s.php',
             ),
         ),
     ),
@@ -70,6 +70,7 @@ return array(
             'BackEnd\Controller\Ajax' => 'BackEnd\Controller\AjaxController',
             'BackEnd\Controller\User' => 'BackEnd\Controller\UserController',
             'BackEnd\Controller\Member' => 'BackEnd\Controller\MemberController',
+            'BackEnd\Controller\Config' => 'BackEnd\Controller\ConfigController',
         ),
     ),
     'view_manager' => array(
