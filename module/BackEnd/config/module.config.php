@@ -71,6 +71,8 @@ return array(
             'BackEnd\Controller\User' => 'BackEnd\Controller\UserController',
             'BackEnd\Controller\Member' => 'BackEnd\Controller\MemberController',
             'BackEnd\Controller\Config' => 'BackEnd\Controller\ConfigController',
+            'BackEnd\Controller\Article' => 'BackEnd\Controller\ArticleController',
+            'BackEnd\Controller\Category' => 'BackEnd\Controller\CategoryController',
         ),
     ),
     'view_manager' => array(

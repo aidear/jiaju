@@ -120,6 +120,43 @@ return array (
 			)
 	),
 	array(
+		'label' => '内容管理',
+		'id' => 2,
+		'uri' => '',
+		'order' => 1,
+		'pages' => array(
+				array(
+						'label' => '文章管理',
+						'id' => 20,
+						'uri'	 => '',
+						'pages' => array(
+								array(
+										'label' => '文章列表',
+										'id' => 201,
+										'controller' => 'article',
+										'action'	 => 'index',
+										'resource'   => 'article_index',
+								),
+								array(
+										'label' => '分类列表',
+										'id' => 202,
+										'controller' => 'category',
+										'action'	 => 'index',
+										'resource'   => 'category_index',
+								),
+								array(
+										'label' => '分类编辑',
+										'id' => 203,
+										'controller' => 'category',
+										'action'	 => 'save',
+										'resource'   => 'category_save',
+										'visible'	=> false,
+								),
+						),
+				),
+		),
+	),
+	array(
 			'label' => '网站管理',
 			'id' => 4,
 			'controller' => 'site',

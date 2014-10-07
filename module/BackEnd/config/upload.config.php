@@ -3,14 +3,14 @@
  * upload.config.php
  *------------------------------------------------------
  *
- * 
+ *
  *
  * PHP versions 5
  *
  *
  *
  * @author Willing Peng<pcq2006@gmail.com>
- * @copyright (C) 2013-2018 
+ * @copyright (C) 2013-2018
  * @version CVS: Id: upload.config.php,v 1.0 2013-9-20 下午7:23:51 Willing Exp
  * @link http://localhost
  * @deprecated File deprecated in Release 3.0.0
@@ -38,17 +38,17 @@ return array(
              ))
          ),
      ),
-     //nav图片
-     'nav' => array(
-         'uploadPath' => APPLICATION_PATH . '/public/images/nav/',
-         'showPath' => '/images/nav/',
+     //category图片
+     'category' => array(
+         'uploadPath' => APPLICATION_PATH . '/public/images/categroy/',
+         'showPath' => '/images/categroy/',
          'validators' => array(
              new Size(array(
                  'max' => '16000'
              ))
          ),
      ),
-    
+
     //link icon
     'link' => array(
          'uploadPath' => APPLICATION_PATH . '/public/images/link/',
@@ -68,5 +68,5 @@ return array(
 					))
 			),
 	),
-    
+
 );

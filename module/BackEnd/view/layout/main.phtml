@@ -38,10 +38,10 @@
             <div class="col-1">
                 <div class="content" style="position:relative; overflow:hidden">
                     <iframe name="right" id="rightMain" src="index.html" frameborder="false" scrolling="auto" style="overflow-x:hidden;border:none; margin-bottom:30px" width="100%" height="auto" allowtransparency="true"></iframe>
-                    <div class="fav-nav">
-                        <div id="panellist"></div>
-                        <div id="paneladd"><a class="panel-add" href="javascript:add_panel();"><em>添加</em></a></div>
-                    </div>
+<!--                     <div class="fav-nav"> -->
+<!--                         <div id="panellist"></div> -->
+<!--                         <div id="paneladd"><a class="panel-add" href="javascript:add_panel();"><em>添加</em></a></div> -->
+<!--                     </div> -->
                 </div>
             </div>
         </div>
@@ -101,7 +101,7 @@ $("#openClose").click(function(){
 	return false;
 });
 function _M(menuid,targetUrl) {
-	$("#leftMain").load("/index/menu?id="+menuid);
+	$("#leftMain").load("/index/menu", {id: menuid});
 //	if(menuid!=8) {
 //		$("#leftMain").load("?m=admin&c=index&a=public_menu_left&menuid="+menuid);
 //	} else {

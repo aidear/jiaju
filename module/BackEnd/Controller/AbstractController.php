@@ -14,6 +14,7 @@ use Zend\View\Model\ViewModel;
 use Zend\Session\Container;
 use Zend\EventManager\EventManager;
 use Custom\Mvc\ActionEvent;
+use Custom\File\Uploader;
 abstract class AbstractController extends AbstractActionController {
 	const LIMIT = 15;
 	const MSG_SUCCESS = 'success';    //message
@@ -109,6 +110,12 @@ abstract class AbstractController extends AbstractActionController {
 		$this->flashMessenger()->addMessage($message);
 		return $this;
 	}
+	public function _success($message) {
+		$this->_message($message);
+	}
+	public function _error($message) {
+		$this->_message($message, self::MSG_ERROR);
+	}
 	function setActionEvent(ActionEvent $event)
 	{
 		$this->actionEvent = $event;
@@ -178,5 +185,24 @@ abstract class AbstractController extends AbstractActionController {
 		}
 
 		return $order;
+	}
+	/**
+	 * 上传图片
+	 * @param string $name			文件名
+	 * @param array $files			POST过来的文件
+	 * @param string $k				配置参数key
+	 * @return string|NULL
+	 */
+	protected function _insertImg($name, $files, $k)
+	{
+		$config = $this->_getConfig('upload');
+		$config = $config[$k];
+		if(! empty($files['name'])){
+			return $config['showPath'] . Uploader::upload($files , $name , $config['uploadPath'] , $config);
+		}else{
+			return null;
+		}
+
+		return null;
 	}
 }

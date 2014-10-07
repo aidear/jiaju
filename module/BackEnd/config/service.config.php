@@ -72,6 +72,11 @@ return array(
 
 					return new BackEnd\Model\User\MyAcl($dbAdapter, $sm->get('cache'));
 				},
+				'CategoryTable' => function($sm){
+					$dbAdapter = $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+
+					return new BackEnd\Model\Category\CategoryTable('category', $dbAdapter);
+				},
 				'backendNav' => '\Custom\Navigation\Service\BackendNavigation',
 				'Zend\Session\SessionManager' => function ($sm) {
 	            $config = $sm->get('config');
