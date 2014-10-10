@@ -62,6 +62,7 @@ class CategoryController extends AbstractController
 			unset($this->op[$catid]);
 		}
 		$form->get('parent')->setValueOptions($this->op);
+		$form->get('order')->setValue(1);
 		$req = $this->getRequest();
 		if ($req->isPost()) {
 			$params = $req->getPost();

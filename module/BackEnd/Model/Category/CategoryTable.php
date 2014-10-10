@@ -1,7 +1,7 @@
 <?php
 namespace BackEnd\Model\Category;
 
-use Zend\Db\TableGateway\TableGateway;
+use Custom\Db\TableGateway\TableGateway;
 use Zend\Db\Sql\Where;
 use Zend\Paginator\Adapter\DbSelect;
 class CategoryTable extends TableGateway
@@ -21,11 +21,6 @@ class CategoryTable extends TableGateway
 			$select->order(array($k=>$v));
 		}
 		return new DbSelect($select, $this->getAdapter());
-	}
-	function getOneById($id){
-		$rowset = $this->select(array('id' => $id));
-		$row = $rowset->current();
-		return $row;
 	}
 	function getOneForId($id){
 		if (is_array($id)) {

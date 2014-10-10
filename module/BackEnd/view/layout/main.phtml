@@ -10,7 +10,7 @@
 	echo $this->headScript()
 	->prependFile($this->basePath() . '/statics/js/comm.js')
 	->prependFile($this->basePath('js/jquery.nicescroll.min.js'))
-	->prependFile($this->basePath() . '/statics/js/jquery.min.js');
+	->prependFile($this->basePath() . '/js/jquery.min.js');
 ?>
 </head>
 <body scroll="no">
@@ -37,7 +37,7 @@
         	当前位置：<span id="current_pos"></span></div> -->
             <div class="col-1">
                 <div class="content" style="position:relative; overflow:hidden">
-                    <iframe name="right" id="rightMain" src="index.html" frameborder="false" scrolling="auto" style="overflow-x:hidden;border:none; margin-bottom:30px" width="100%" height="auto" allowtransparency="true"></iframe>
+                    <iframe name="right" id="rightMain" src="" frameborder="false" scrolling="auto" style="overflow-x:hidden;border:none; margin-bottom:30px" width="100%" height="auto" allowtransparency="true"></iframe>
 <!--                     <div class="fav-nav"> -->
 <!--                         <div id="panellist"></div> -->
 <!--                         <div id="paneladd"><a class="panel-add" href="javascript:add_panel();"><em>添加</em></a></div> -->
@@ -127,9 +127,9 @@ function _MP(menuid,targetUrl) {
 	$("#rightMain").attr('src', targetUrl);
 	$('.sub_menu').removeClass("on fb blue");
 	$('#_MP'+menuid).addClass("on fb blue");
-	$.get("current_pos_"+menuid+".html", function(data){
-		$("#current_pos").html(data+'<span id="current_pos_attr"></span>');
-	});
+// 	$.get("current_pos_"+menuid+".html", function(data){
+// 		$("#current_pos").html(data+'<span id="current_pos_attr"></span>');
+// 	});
 	$("#current_pos").data('clicknum', 1);
 }
 

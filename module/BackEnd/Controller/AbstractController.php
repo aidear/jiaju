@@ -15,6 +15,7 @@ use Zend\Session\Container;
 use Zend\EventManager\EventManager;
 use Custom\Mvc\ActionEvent;
 use Custom\File\Uploader;
+use Zend\Paginator\Paginator;
 abstract class AbstractController extends AbstractActionController {
 	const LIMIT = 15;
 	const MSG_SUCCESS = 'success';    //message
@@ -204,5 +205,16 @@ abstract class AbstractController extends AbstractActionController {
 		}
 
 		return null;
+	}
+	protected function _getPaginator($params, $adapter)
+	{
+		$page = isset($params['page']) ? $params['page'] : 1;
+		$order = array();
+		if ($params['orderField']) {
+			$order = array($params['orderField'] => $params['orderType']);
+		}
+		$paginator = new Paginator($adapter->getListsToPaginator($params, $order));
+		$paginator->setCurrentPageNumber($page)->setItemCountPerPage(isset($params['pageSize']) ? $params['pageSize'] : self::LIMIT);
+		return $paginator;
 	}
 }

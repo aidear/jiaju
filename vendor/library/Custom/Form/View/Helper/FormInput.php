@@ -50,7 +50,9 @@ class FormInput extends \Zend\Form\View\Helper\FormInput
         	$re .= "&nbsp;<input type=\"color\" name='c_{$name}' />";
         }
         $span = '';
+        $errClass = '';
         if ($errmsg) {
+        	$errClass = ' error';
         	foreach($errmsg as $msg){
         		$span .= "<span class='help-inline'>{$msg}</span>";
         	}
@@ -61,7 +63,7 @@ class FormInput extends \Zend\Form\View\Helper\FormInput
         	$span .= "<span style='color:red;'> {$attributes['must']} </span>";
         }
 
-        $re = '<div class="form-group">' . $re;
+        $re = '<div class="form-group'.$errClass.'">' . $re;
 		if ($span) {
 			$span = "<div class='col-sm-3'>". $span . "</div>";
 		}

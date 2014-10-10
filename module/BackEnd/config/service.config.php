@@ -77,6 +77,11 @@ return array(
 
 					return new BackEnd\Model\Category\CategoryTable('category', $dbAdapter);
 				},
+				'ArticleTable' => function($sm){
+					$dbAdapter = $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+
+					return new BackEnd\Model\Article\ArticleTable('article', $dbAdapter);
+				},
 				'backendNav' => '\Custom\Navigation\Service\BackendNavigation',
 				'Zend\Session\SessionManager' => function ($sm) {
 	            $config = $sm->get('config');

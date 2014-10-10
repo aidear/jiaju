@@ -1,0 +1,48 @@
+<?php
+$this->headScript()->appendFile($this->basePath('js/jquery-ui-1.10.2.custom.min.js'))
+->appendFile($this->basePath('statics/ueditor/ueditor.config.js'))
+->appendFile($this->basePath('statics/ueditor/ueditor.all.js'))
+->appendFile($this->basePath('js/jquery.ui.datepicker-zh-CN.js'));
+$this->headLink()->appendStylesheet($this->basePath('css/jquery-ui-1.10.2.custom.min.css'));
+$form = $this->form;
+$msg = $this->flashMessages();
+$id = $form->get('id')->getValue();
+?>
+<ul class="nav nav-tabs" role="tablist">
+  <li role="presentation"><a href="<?php echo $this->url('backend' , array('controller' => 'article' , 'action' => 'index'));
+    ?>">文章列表</a></li>
+  <li role="presentation" class="active"><a href="<?php echo $this
+    ->url('backend' , array('controller' => 'article' , 'action' => 'save')) . $id ? '?id='.$id : '';
+    ?>"><i class="icon-plus"></i><?php echo $id ? '修改文章' : '添加文章';?></a></li>
+</ul>
+<br />
+<div class="panel panel-default">
+  <div class="panel-body">
+  <form class="form-horizontal" action="<?php echo $this->url('backend' , array('controller' => 'article' , 'action' => 'save'))?>"
+              method="post" enctype="multipart/form-data">
+            <?php $img =  $form->get('img')->getValue();?>
+			<fieldset style="border:0;">
+			<?php if (!empty($img)):?>
+            	<span class="show_image">
+            	<img height="150px" src="<?php echo $img;?>" />
+            	</span>
+            <?php endif;?>
+            	<?php echo $this->formHidden($form->get('id'))?>
+                <?php echo $this->formText($form->get('title'))?>
+                <?php echo $this->formText($form->get('subhead'))?>
+                <?php echo $this->formText($form->get('keyword'))?>
+            	<?php echo $this->formTextarea($form->get('summary'))?>
+            	<?php echo $this->formTextarea($form->get('content'))?>
+            	<?php echo $this->formFile($form->get('img'))?>
+                <?php echo $this->formSelect($form->get('type'))?>
+				<?php echo $this->formText($form->get('order'))?>
+                <?php echo $this->formSubmit($form->get('submit') , '提交')?>
+            </fieldset>
+        </form>
+  </div>
+</div>
+<script>
+$(function(){
+    UE.getEditor('myEditor');
+})
+</script>

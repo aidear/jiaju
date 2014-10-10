@@ -80,3 +80,9 @@ div.container a.brand {
 .icon-download {
     background-position: -120px -24px;
 }
+.error .help-inline {
+    color: #BD4247;
+}
+.error input {
+	border-color:#BD4247;
+}
